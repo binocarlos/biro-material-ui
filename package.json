@@ -1,6 +1,6 @@
 {
   "name": "biro-material-ui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "material-ui library for biro",
   "main": "index.js",
   "scripts": {
@@ -34,9 +34,7 @@
     "url": "https://github.com/binocarlos/biro-material-ui/issues"
   },
   "homepage": "https://github.com/binocarlos/biro-material-ui",
-  "dependencies": {
-    
-  },
+  "dependencies": {},
   "devDependencies": {
     "babel-cli": "^6.10.1",
     "babel-core": "^6.4.5",
