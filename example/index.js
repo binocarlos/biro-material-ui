@@ -12,10 +12,13 @@ const SCHEMA = [
   'firstname',   // this is turned into {type:'text',name:'firstname'}
   'surname',
   'email',
+  'password',
+  'password2',
   {
     type:'text',
     name:'phone',
     validate:function(val = ''){
+      if(!val) return false
       return val.match(/^\+?[-\d\s]+$/) ? null : 'invalid phone number'
     }
   }
@@ -35,6 +38,14 @@ const finalCreateStore = compose(
 
 const store = finalCreateStore(reducer)
 
+function validateForm(data, meta){
+  var ret = {}
+  if(data.password!=data.password2 && meta.password.dirty && meta.password2.dirty){
+    ret.password = ret.password2 = 'passwords must match'
+  }
+  return ret
+}
+
 /*
   routes
 */
@@ -46,6 +57,7 @@ ReactDOM.render(
         name="contact"
         library={muiLibrary} 
         schema={SCHEMA}
+        validate={validateForm} 
         formrenderer={FormLayout}
         rowrenderer={RowLayout} />
 
