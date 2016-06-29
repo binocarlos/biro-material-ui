@@ -5,7 +5,6 @@ class RowLayout extends Component {
   render() {
     return (
       <div>
-        {this.props.title}:
         {this.props.children}
       </div>
     )

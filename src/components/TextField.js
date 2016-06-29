@@ -1,18 +1,35 @@
 import React, { PropTypes, Component } from 'react'
+import TextField from 'material-ui/TextField';
 
-class TextField extends Component {
+class TextFieldComponent extends Component {
 
   handleChange(e) {
     this.props.update(e.target.value)
   }
 
+  handleBlur(e) {
+    this.props.blur()
+  }
+  
   render() {
+    var errorDiv = this.props.error ? (
+      <div>{this.props.error || ''}</div>
+    ) : null
+
+    var type = this.props.schema.inputtype || 'text'
+
     return (
-      <input type="text" value={this.props.value} onChange={this.handleChange.bind(this)} />
+      <TextField 
+        value={this.props.value || ''} 
+        fullWidth 
+        type={type} 
+        errorText={errorDiv} 
+        floatingLabelText={this.props.title} 
+        onChange={this.handleChange.bind(this)} 
+        onBlur={this.handleBlur.bind(this)} />
     )
   }
 
 }
 
-export default TextField
-
+export default TextFieldComponent
