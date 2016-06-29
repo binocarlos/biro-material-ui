@@ -1,3 +1,1 @@
-import Form from './containers/Form'
-
-export default Form
+module.exports = require('./lib')
