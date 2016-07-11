@@ -34,7 +34,7 @@ const SCHEMA = [
     name:'phone',
     validate:function(val = ''){
       return val.match(/^\+?[-\d\s]+$/) ? null : 'invalid phone number'
-    }np
+    }
   }
 ]
 
