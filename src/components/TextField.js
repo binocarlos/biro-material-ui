@@ -12,7 +12,7 @@ class TextFieldComponent extends Component {
   }
   
   render() {
-    var errorDiv = this.props.error ? (
+    var errorDiv = this.props.dirty && this.props.error ? (
       <div>{this.props.error || ''}</div>
     ) : null
 

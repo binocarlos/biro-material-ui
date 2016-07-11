@@ -13,16 +13,17 @@ $ npm install biro-material-ui --save
 
 ## usage
 
+It is assumed that you will be using the `material-ui` module in your project.
+
 ```javascript
-import React from 'react'
+import React, { Component, PropTypes } from 'react'
 import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
+import { Provider, connect } from 'react-redux'
 import { applyMiddleware, compose, createStore, combineReducers } from 'redux'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-
-import biroreducer from 'biro/reducer'
 import Biro from 'biro'
-import muiLibrary, { FormLayout, RowLayout } from 'biro-material-ui'
+import muiLibrary from 'biro-material-ui'
+import muiLayout from 'biro-material-ui/layout'
 
 const SCHEMA = [
   'firstname',   // this is turned into {type:'text',name:'firstname'}
@@ -37,38 +38,86 @@ const SCHEMA = [
   }
 ]
 
+const FORM_UPDATE = 'FORM_UPDATE'
+
+function formUpdateAction(data, meta){
+  return {
+    type:FORM_UPDATE,
+    data:data,
+    meta:meta
+  }
+}
+
+const initialState = {
+  data:{},
+  meta:null
+}
+
 const reducer = combineReducers({
-  biro: biroreducer
+  form: function(state = initialState, action = {}) {
+    switch (action.type) {
+      case FORM_UPDATE:
+        return Object.assign({}, state, {
+          data:action.data,
+          meta:action.meta
+        })
+      default:
+        return state
+    }
+  }
 })
 
-/*
-  store
-*/
 const finalCreateStore = compose(
   applyMiddleware.apply(null, []),
-  window.devToolsExtension ? window.devToolsExtension() : f => f
+  window.devToolsExtension && window.devToolsExtension()
 )(createStore)
 
 const store = finalCreateStore(reducer)
 
+class MyForm extends Component {
+  render() {
+    return (
+      <Biro 
+        data={this.props.data}
+        meta={this.props.meta}
+        schema={SCHEMA}
+        update={this.props.update} 
+        library={muiLibrary}
+        layout={muiLayout} />
+    )
+  }
+}
+
+
+function mapStateToProps(state, ownProps) {
+  return {
+    data:state.form.data,
+    meta:state.form.meta
+  }
+}
+
+function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    update:function(data, meta){
+      dispatch(formUpdateAction(data, meta))
+    }
+  }
+}
+
+var FormContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MyForm)
+
 ReactDOM.render(  
   <Provider store={store}>
     <MuiThemeProvider>
-
-      <Biro 
-        name="contact"
-        library={muiLibrary} 
-        schema={SCHEMA}
-        formrenderer={FormLayout}
-        rowrenderer={RowLayout} />
-
+      <FormContainer /> 
     </MuiThemeProvider>
   </Provider>,
   document.getElementById('mount')
 )
 ```
-
-
 
 ## license
 
