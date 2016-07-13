@@ -1,6 +1,6 @@
 {
   "name": "biro-material-ui",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "material-ui library for biro",
   "main": "index.js",
   "scripts": {
@@ -51,7 +51,6 @@
     "jsdom": "^8.1.0",
     "mocha": "^2.4.5",
     "webpack": "^1.12.12",
-
     "biro": "^3.1.0",
     "react": "^15.1.0",
     "react-addons-test-utils": "^15.2.1",
@@ -59,6 +58,5 @@
     "react-redux": "^4.4.5",
     "react-shallow-testutils": "^2.0.0",
     "redux": "^3.5.2"
-    
   }
 }
