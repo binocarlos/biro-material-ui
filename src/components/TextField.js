@@ -22,6 +22,7 @@ class TextFieldComponent extends Component {
       <TextField 
         value={this.props.value || ''} 
         fullWidth 
+        disabled={this.props.schema.readonly ? true : false}
         type={type} 
         errorText={errorDiv} 
         floatingLabelText={this.props.title} 
