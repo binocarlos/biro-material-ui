@@ -1,6 +1,6 @@
 {
   "name": "biro-material-ui",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "description": "material-ui library for biro",
   "main": "index.js",
   "scripts": {
